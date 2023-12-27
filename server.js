@@ -2,10 +2,16 @@ import mongoose from "mongoose";
 import express from "express";
 import bodyparser from "express";
 import { Contact } from "./Models/contact.js";
+import cors from 'cors'
 
 const app = express();
 
 app.use(bodyparser.json());
+app.use(cors({
+  origin:"http://localhost:5173",
+  methods:["GET","POST","PUT","DELETE"],
+  credentials:true
+}))
 
 mongoose
   .connect(
