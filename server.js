@@ -3,19 +3,24 @@ import express from "express";
 import bodyparser from "express";
 import { Contact } from "./Models/contact.js";
 import cors from 'cors'
+import { config } from "dotenv";
 
 const app = express();
 
+config({
+  path:'.env'
+})
+
 app.use(bodyparser.json());
 app.use(cors({
-  origin:"http://localhost:5173",
+  origin:process.env.Frontend_URL,
   methods:["GET","POST","PUT","DELETE"],
   credentials:true
 }))
 
 mongoose
-  .connect(
-    "mongodb+srv://shaileshdubey92:q6RloKJhcNrcsKUv@volcanus.qeuzpun.mongodb.net/",
+  .connect(process.env.Mongo_URL,
+    // "mongodb+srv://shaileshdubey92:q6RloKJhcNrcsKUv@volcanus.qeuzpun.mongodb.net/",
     {
       dbName: "MERN_PROJECT_contact_keeper",
     }
@@ -78,6 +83,6 @@ app.put("/:id", async (req, res) => {
 
 });
 
-const port = 3000;
+const port = process.env.Port;
 
 app.listen(port, () => console.log(`server is running port ${port}`));
