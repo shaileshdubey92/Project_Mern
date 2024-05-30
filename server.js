@@ -13,7 +13,7 @@ config({
 
 app.use(bodyparser.json());
 app.use(cors({
-  origin:process.env.Frontend_URL,
+  origin:true,
   methods:["GET","POST","PUT","DELETE"],
   credentials:true
 }))
